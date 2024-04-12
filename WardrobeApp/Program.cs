@@ -20,6 +20,14 @@ builder.Services.AddDefaultIdentity<AppUser>(options => {
     options.Password.RequiredLength = 8;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = "742837832107-mfda79lbibpioj7h15uasujdc797nnc3.apps.googleusercontent.com";
+        options.ClientSecret = "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";
+    });
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

@@ -1,0 +1,49 @@
+﻿@page
+@model WardrobeApp.Areas.Administration.Pages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>AppUser</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AppUser.Nick" class="control-label"></label>
+                <input asp-for="AppUser.Nick" class="form-control" />
+                <span asp-validation-for="AppUser.Nick" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppUser.Gender" class="control-label"></label>
+                <input asp-for="AppUser.Gender" class="form-control" />
+                <span asp-validation-for="AppUser.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppUser.DateOfCreation" class="control-label"></label>
+                <input asp-for="AppUser.DateOfCreation" class="form-control" />
+                <span asp-validation-for="AppUser.DateOfCreation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppUser.Email" class="control-label"></label>
+                <input asp-for="AppUser.Email" class="form-control" />
+                <span asp-validation-for="AppUser.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="AdminIndex">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
