@@ -21,6 +21,12 @@ builder.Services.AddDefaultIdentity<AppUser>(options => {
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("AdminClaim", policy => policy.RequireClaim("SuperUser", "1"));
+});
+
 builder.Services.AddAuthentication()
     .AddGoogle(options =>
     {
@@ -49,6 +55,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
