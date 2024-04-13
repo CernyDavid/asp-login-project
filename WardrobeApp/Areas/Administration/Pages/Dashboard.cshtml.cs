@@ -8,21 +8,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WardrobeApp.Data;
 using WardrobeApp.Models;
-using System.Security.Claims;
 
 namespace WardrobeApp.Areas.Administration.Pages
 {
     [Authorize("Admin")]
-    public class AdminIndexModel : PageModel
+    public class DashboardModel : PageModel
     {
-        private readonly WardrobeApp.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AdminIndexModel(WardrobeApp.Data.ApplicationDbContext context)
+        public DashboardModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<AppUser> AppUser { get;set; } = default!;
+        public IList<AppUser> AppUser { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

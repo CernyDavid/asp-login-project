@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,11 +12,12 @@ using WardrobeApp.Models;
 
 namespace WardrobeApp.Areas.Administration.Pages
 {
+    [Authorize("Admin")]
     public class EditModel : PageModel
     {
-        private readonly WardrobeApp.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(WardrobeApp.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -30,7 +32,7 @@ namespace WardrobeApp.Areas.Administration.Pages
                 return NotFound();
             }
 
-            var appuser =  await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            var appuser = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
             if (appuser == null)
             {
                 return NotFound();
