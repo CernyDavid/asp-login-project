@@ -59,7 +59,7 @@ namespace WardrobeApp.Areas.Administration.Pages
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Dashboard");
         }
     }
 }

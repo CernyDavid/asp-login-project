@@ -39,6 +39,10 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AuthorizeFolder("/Areas/Administration/Pages", "Admin")
 );
 
+builder.Services.AddControllers(
+    options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
