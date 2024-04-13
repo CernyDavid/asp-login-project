@@ -19,13 +19,8 @@ builder.Services.AddDefaultIdentity<AppUser>(options => {
     options.Password.RequireDigit = false;
     options.Password.RequiredLength = 8;
 })
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("AdminClaim", policy => policy.RequireClaim("SuperUser", "1"));
-});
 
 builder.Services.AddAuthentication()
     .AddGoogle(options =>
@@ -34,7 +29,15 @@ builder.Services.AddAuthentication()
         options.ClientSecret = "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";
     });
 
-builder.Services.AddRazorPages();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("AdminClaim", policy => policy.RequireClaim("SuperUser", "1"));
+});
+
+builder.Services.AddRazorPages(options =>
+    options.Conventions.AuthorizeFolder("/Areas/Administration/Pages", "Admin")
+);
 
 var app = builder.Build();
 
