@@ -1,0 +1,61 @@
+﻿@page
+@model WardrobeApp.Pages.ClothingItemCRUD.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClothingItem[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClothingItem[0].Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClothingItem[0].Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClothingItem[0].Owner)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ClothingItem) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (item.Image != null && item.Image.Length > 0)
+                {
+                    <img src="data:image;base64,@(Convert.ToBase64String(item.Image))" alt="Clothing Image" />
+                }
+                else
+                {
+                    <p>No image available</p>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
