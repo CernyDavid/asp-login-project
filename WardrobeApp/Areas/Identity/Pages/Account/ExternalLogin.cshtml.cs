@@ -46,6 +46,8 @@ namespace WardrobeApp.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
+        public string[] Genders = ["Male", "Female", "Other", "Not specified"];
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -85,6 +87,13 @@ namespace WardrobeApp.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "Nickname")]
+            public string Nickname { get; set; }
+
+            [Display(Name = "Gender")]
+            public string Gender { get; set; }
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -153,6 +162,8 @@ namespace WardrobeApp.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.Nick = Input.Nickname;
+                user.Gender = Input.Gender;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
