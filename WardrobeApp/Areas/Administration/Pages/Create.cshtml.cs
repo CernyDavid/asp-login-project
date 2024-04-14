@@ -80,6 +80,7 @@ namespace WardrobeApp.Areas.Administration.Pages
             public string Password { get; set; }
 
             [Display(Name = "Security Stamp")]
+            [Required]
             public string SecurityStamp { get; set; }
 
             [Display(Name = "Gender")]

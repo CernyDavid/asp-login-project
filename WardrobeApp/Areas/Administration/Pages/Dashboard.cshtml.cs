@@ -23,9 +23,18 @@ namespace WardrobeApp.Areas.Administration.Pages
 
         public IList<AppUser> AppUser { get; set; } = default!;
 
-        public async Task OnGetAsync()
+		public string CurrentFilter { get; set; }
+
+		public async Task OnGetAsync(string searchString)
         {
             AppUser = await _context.Users.ToListAsync();
+
+            CurrentFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+				AppUser = await _context.Users.Where(u => u.Nick.Contains(searchString)).ToListAsync();
+			}
         }
     }
 }
