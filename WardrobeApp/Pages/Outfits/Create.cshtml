@@ -1,0 +1,63 @@
+﻿@page
+@model WardrobeApp.Pages.Outfits.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Outfit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Outfit.Name" class="control-label"></label>
+                <input asp-for="Outfit.Name" class="form-control" />
+                <span asp-validation-for="Outfit.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outfit.Created" class="control-label"></label>
+                <input asp-for="Outfit.Created" class="form-control" />
+                <span asp-validation-for="Outfit.Created" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outfit.HeadwearId" class="control-label"></label>
+                <select asp-for="Outfit.HeadwearId" class ="form-control" asp-items="ViewBag.HeadwearId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outfit.TopId" class="control-label"></label>
+                <select asp-for="Outfit.TopId" class ="form-control" asp-items="ViewBag.TopId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outfit.BottomId" class="control-label"></label>
+                <select asp-for="Outfit.BottomId" class ="form-control" asp-items="ViewBag.BottomId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outfit.FootwearId" class="control-label"></label>
+                <select asp-for="Outfit.FootwearId" class ="form-control" asp-items="ViewBag.FootwearId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outfit.AccessoryId" class="control-label"></label>
+                <select asp-for="Outfit.AccessoryId" class ="form-control" asp-items="ViewBag.AccessoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outfit.OwnerId" class="control-label"></label>
+                <select asp-for="Outfit.OwnerId" class ="form-control" asp-items="ViewBag.OwnerId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
