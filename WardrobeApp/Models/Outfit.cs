@@ -3,7 +3,7 @@
     public class Outfit
     {
         public Guid Id { get; set; }
-        public string Name { get; set; } = "";
+        public string Name { get; set; } = "Unnamed";
         public DateOnly Created { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
         public ClothingItem Headwear { get; set; } = default!;
