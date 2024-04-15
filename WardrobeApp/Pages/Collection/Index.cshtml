@@ -22,9 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ClothingItem[0].Type)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClothingItem[0].Owner)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -48,11 +45,7 @@
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Owner.Id)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Edit" asp-route-id="@item.Id">Rename</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

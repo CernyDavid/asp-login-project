@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using WardrobeApp.Models;
 
 namespace WardrobeApp.Pages.ClothingItemCRUD
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly WardrobeApp.Data.ApplicationDbContext _context;
@@ -21,6 +23,11 @@ namespace WardrobeApp.Pages.ClothingItemCRUD
         }
 
         [BindProperty]
+        public string Name { get; set; } = default!;
+
+        [BindProperty]
+        public Guid Id { get; set; }
+
         public ClothingItem ClothingItem { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
@@ -36,7 +43,8 @@ namespace WardrobeApp.Pages.ClothingItemCRUD
                 return NotFound();
             }
             ClothingItem = clothingitem;
-           ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id");
+            Id = ClothingItem.Id;
+            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
@@ -44,12 +52,19 @@ namespace WardrobeApp.Pages.ClothingItemCRUD
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ClothingItem = await _context.ClothingItems.FirstOrDefaultAsync(m => m.Id == Id);
+
+            if (ClothingItem == null)
+            {
+                return NotFound();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(ClothingItem).State = EntityState.Modified;
+            ClothingItem.Name = Name;
 
             try
             {

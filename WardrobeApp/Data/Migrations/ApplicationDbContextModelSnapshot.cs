@@ -294,7 +294,7 @@ namespace WardrobeApp.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("ClothingItems");
+                    b.ToTable("ClothingItems", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
