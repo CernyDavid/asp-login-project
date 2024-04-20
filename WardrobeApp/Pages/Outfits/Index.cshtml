@@ -31,12 +31,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Outfit[0].Footwear)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Accessory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Owner)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -50,26 +44,47 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Headwear.Id)
+                @if (item.Headwear.Image != null && item.Headwear.Image.Length > 0)
+                {
+                    <img src="data:image;base64,@(Convert.ToBase64String(item.Headwear.Image))" alt="Clothing Image" />
+                }
+                else
+                {
+                    <p>No image available</p>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Top.Id)
+                @if (item.Top.Image != null && item.Top.Image.Length > 0)
+				{
+					<img src="data:image;base64,@(Convert.ToBase64String(item.Top.Image))" alt="Clothing Image" />
+				}
+				else
+				{
+					<p>No image available</p>
+				}
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bottom.Id)
+                @if (item.Bottom.Image != null && item.Bottom.Image.Length > 0)
+                {
+                    <img src="data:image;base64,@(Convert.ToBase64String(item.Bottom.Image))" alt="Clothing Image" />
+				}
+				else
+				{
+					<p>No image available</p>
+				}
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Footwear.Id)
+                @if (item.Footwear.Image != null && item.Footwear.Image.Length > 0)
+				{
+					<img src="data:image;base64,@(Convert.ToBase64String(item.Footwear.Image))" alt="Clothing Image" />
+                }
+                else
+				{
+					<p>No image available</p>
+				}
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Accessory.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Owner.Id)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">View</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

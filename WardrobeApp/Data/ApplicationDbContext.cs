@@ -48,11 +48,6 @@ namespace WardrobeApp.Data
                 .HasForeignKey(o => o.FootwearId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Outfit>()
-                .HasOne(o => o.Accessory)
-                .WithMany()
-                .HasForeignKey(o => o.AccessoryId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<IdentityRole<Guid>>().HasData(new IdentityRole<Guid>
             {

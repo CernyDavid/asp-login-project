@@ -11,48 +11,76 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Outfit.Name" class="control-label"></label>
-                <input asp-for="Outfit.Name" class="form-control" />
-                <span asp-validation-for="Outfit.Name" class="text-danger"></span>
+                <label asp-for="Input.Name" class="control-label">Outfit Name</label>
+                <input asp-for="Input.Name" class="form-control" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Outfit.Created" class="control-label"></label>
-                <input asp-for="Outfit.Created" class="form-control" />
-                <span asp-validation-for="Outfit.Created" class="text-danger"></span>
+                <label>Headwear:</label>
+                <select asp-for="Input.HeadwearId" class="form-control" onchange="previewHeadwear(this)">
+                    <option value="">-- Select Headwear --</option>
+                    @foreach (var item in Model.HeadwearItems)
+                    {
+                        var base64Image = Convert.ToBase64String(item.Image);
+                        var imageSrc = $"data:image/jpeg;base64,{base64Image}";
+                        <option value="@item.Value" data-image="@imageSrc">@item.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Input.HeadwearId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Outfit.HeadwearId" class="control-label"></label>
-                <select asp-for="Outfit.HeadwearId" class ="form-control" asp-items="ViewBag.HeadwearId"></select>
+				<label>Top:</label>
+                <select asp-for="Input.TopId" class="form-control" onchange="previewTop(this)">
+					<option value="">-- Select Top --</option>
+					@foreach (var item in Model.TopItems)
+					{
+						var base64Image = Convert.ToBase64String(item.Image);
+						var imageSrc = $"data:image/jpeg;base64,{base64Image}";
+                        <option value="@item.Value" data-image="@imageSrc">@item.Text</option>
+					}
+				</select>
+				<span asp-validation-for="Input.TopId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Outfit.TopId" class="control-label"></label>
-                <select asp-for="Outfit.TopId" class ="form-control" asp-items="ViewBag.TopId"></select>
+                <label>Bottom:</label>
+                <select asp-for="Input.BottomId" class="form-control" onchange="previewBottom(this)">
+                    <option value="">-- Select Bottom --</option>
+                    @foreach (var item in Model.BottomItems)
+                    {
+                        var base64Image = Convert.ToBase64String(item.Image);
+                        var imageSrc = $"data:image/jpeg;base64,{base64Image}";
+                        <option value="@item.Value" data-image="@imageSrc">@item.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Input.BottomId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Outfit.BottomId" class="control-label"></label>
-                <select asp-for="Outfit.BottomId" class ="form-control" asp-items="ViewBag.BottomId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Outfit.FootwearId" class="control-label"></label>
-                <select asp-for="Outfit.FootwearId" class ="form-control" asp-items="ViewBag.FootwearId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Outfit.AccessoryId" class="control-label"></label>
-                <select asp-for="Outfit.AccessoryId" class ="form-control" asp-items="ViewBag.AccessoryId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Outfit.OwnerId" class="control-label"></label>
-                <select asp-for="Outfit.OwnerId" class ="form-control" asp-items="ViewBag.OwnerId"></select>
+				<label>Footwear:</label>
+                <select asp-for="Input.FootwearId" class="form-control" onchange="previewFootwear(this)">
+					<option value="">-- Select Footwear --</option>
+					@foreach (var item in Model.FootwearItems)
+					{
+						var base64Image = Convert.ToBase64String(item.Image);
+						var imageSrc = $"data:image/jpeg;base64,{base64Image}";
+						<option value="@item.Value" data-image="@imageSrc">@item.Text</option>
+					}
+				</select>
+				<span asp-validation-for="Input.FootwearId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+        <img id="headwearImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Preview Image" style="max-width: 100px; max-height: 100px;">
+        <img id="topImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Preview Image" style="max-width: 100px; max-height: 100px;">
+        <img id="bottomImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Preview Image" style="max-width: 100px; max-height: 100px;">
+        <img id="footwearImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Preview Image" style="max-width: 100px; max-height: 100px;">
     </div>
 </div>
+
 
 <div>
     <a asp-page="Index">Back to List</a>
@@ -60,4 +88,39 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function previewHeadwear(selectElement) {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var imageSrc = selectedOption.getAttribute('data-image');
+            document.getElementById('headwearImage').src = imageSrc;
+            if (document.getElementById('headwearImage').src == null ) {
+                document.getElementById('headwearImage').src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+			}
+        }
+        function previewTop(selectElement) {
+			var selectedOption = selectElement.options[selectElement.selectedIndex];
+			var imageSrc = selectedOption.getAttribute('data-image');
+			document.getElementById('topImage').src = imageSrc;
+            if (document.getElementById('topImage').src == null) {
+                document.getElementById('topImage').src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+            }
+
+		}
+        function previewBottom(selectElement) {
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+			var imageSrc = selectedOption.getAttribute('data-image');
+			document.getElementById('bottomImage').src = imageSrc;
+            if (document.getElementById('bottomImage').src == null) {
+				document.getElementById('bottomImage').src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+			}
+        }
+		function previewFootwear(selectElement) {
+			var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var imageSrc = selectedOption.getAttribute('data-image');
+            document.getElementById('footwearImage').src = imageSrc;
+            if (document.getElementById('footwearImage').src == null) {
+				document.getElementById('footwearImage').src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+			}
+        }
+    </script>
 }

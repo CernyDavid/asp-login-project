@@ -36,6 +36,26 @@ namespace WardrobeApp.Pages.Outfits
             else
             {
                 Outfit = outfit;
+                var top = await _context.ClothingItems.FirstOrDefaultAsync(m => m.Id == outfit.TopId);
+                var bottom = await _context.ClothingItems.FirstOrDefaultAsync(m => m.Id == outfit.BottomId);
+                var footwear = await _context.ClothingItems.FirstOrDefaultAsync(m => m.Id == outfit.FootwearId);
+                var headwear = await _context.ClothingItems.FirstOrDefaultAsync(m => m.Id == outfit.HeadwearId);
+                if (top != null)
+                {
+                    outfit.Top = top;
+                }
+                if (bottom != null)
+                {
+                    outfit.Bottom = bottom;
+                }
+                if (footwear != null)
+                {
+                    outfit.Footwear = footwear;
+                }
+                if (headwear != null)
+                {
+                    outfit.Headwear = headwear;
+                }
             }
             return Page();
         }

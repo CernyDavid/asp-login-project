@@ -5,7 +5,6 @@
         Headwear,
         Top,
         Bottom,
-        Footwear,
-        Accessory
+        Footwear
     }
 }
