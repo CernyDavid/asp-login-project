@@ -70,7 +70,7 @@ a {
     display: block;
 }
 
-@media (min-width: 1900px) {
+@media (min-width: 1300px) {
     .search-box {
         margin-bottom: 20px;
     }
