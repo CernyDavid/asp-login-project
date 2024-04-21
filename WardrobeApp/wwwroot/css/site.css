@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -18,5 +19,133 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #b21c0e;
+    font-family: Arial, sans-serif;
+}
+
+.navigation__main {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1em;
+}
+
+.navigation__section {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    padding: 0;
+    align-items: center;
+}
+
+.navigation li {
+    list-style-type: none;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: white;
+}
+
+.navigation__item--name a {
+    font-size: 1.5rem;
+    color: #fdc7c7;
+    font-weight: 600;
+}
+
+.navigation__item--desktop-only {
+    display: none;
+}
+
+.navigation__item--link {
+    line-height: 17px;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+}
+
+.button--primary {
+    background-color: #fb4444;
+    border: 1px solid #ff0000;
+    margin: 1em 0;
+    color: white;
+}
+
+.button--primary:hover {
+    background-color: #ff0000;
+}
+
+.button--secondary {
+    background-color: #fdc7c7;
+    border: 1px solid #ff8686;
+    margin: 1em 0;
+    color: #b21c0e;
+}
+
+.button--secondary:hover {
+    background-color: #ff8686;
+}
+
+.main-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2em 0;
+    gap: 48px;
+}
+
+.page-section {
+    text-align:center;
+}
+
+.page-header h1 {
+    margin: 8px 0;
+    font-family: Bahnschrift, sans-serif;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.button {
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+.button--nav {
+    padding: 0;
+    line-height: 17px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    color: white;
+    font-size: 1rem;
+}
+
+@media (min-width: 1200px) {
+    .navigation__main {
+        width: 1200px;
+        padding: 0;
+    }
+    .container {
+        width: 1200px;
+        margin: 0 auto;
+    }
+    .navigation__item--desktop-only {
+            display: block;
+    }
 }

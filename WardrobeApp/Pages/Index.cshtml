@@ -8,22 +8,35 @@
 
 @inject SignInManager<AppUser> SignInManager
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="main-page-container">
+	<div class="page-header">
+		<h1>StyleBase</h1>
+		<p>Your personal wardrobe organizer and outfit planner</p>
+	</div>
     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
     {
-        <a asp-area="Administration" asp-page="Dashboard">Admin Panel</a>
-		<a asp-page="Collection/Index">Collection</a>
+		<div class="page-section">
+			<p>Hello, admin.</p>
+			<a class="button button--primary" asp-area="Administration" asp-page="Dashboard">Admin Panel</a>
+			<a class="button button--primary" asp-page="Collection/Index">Collection</a>
+			<a class="button button--primary" asp-page="Outfits/Index">Outfits</a>
+		</div>
     }
     else if (User.Identity.IsAuthenticated)
 	{
-		<a asp-page="Collection/Index">Collection</a>
+		<div class="page-section">
+		<a class="button button--primary" asp-page="Collection/Index">Clothes</a>
+		<a class="button button--primary" asp-page="Outfits/Index">Outfits</a>
+		</div>
 	}
 	else
 	{
-		<p>Please log in before you continue.</p>
-		<a asp-area="Identity" asp-page="/Account/Register">Register</a>
-		<a asp-area="Identity" asp-page="/Account/Login">Login</a>
+		<div class="page-section">
+			<p>Please log in before you continue.</p>
+			<div>
+				<a class="button button--primary" asp-area="Identity" asp-page="/Account/Register">Register</a>
+				<a class="button button--secondary" asp-area="Identity" asp-page="/Account/Login">Login</a>
+			</div>
+		</div>
 	}
 </div>
