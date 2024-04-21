@@ -5,89 +5,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="main-page-container main-page-container--outfits">
+    <div class="page-header">
+        <h1>Your Outfits</h1>
+        <p>See your outfit history</p>
+    </div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Headwear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Top)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Bottom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Outfit[0].Footwear)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Outfit) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
+    <div class="button-container">
+        <a class="button button--primary" asp-page="./Create">Create Outfit</a>
+        <a class="button button--primary" asp-page="/Collection/Index">View Closet</a>
+    </div>
+
+    <div class="list-container">
+        @foreach (var item in Model.Outfit)
+        {
+            <div class="outfit">
+                <h2 class="outfit__name">@Html.DisplayFor(modelItem => item.Name)</h2>
+                <div class="outfit__main">
                 @if (item.Headwear.Image != null && item.Headwear.Image.Length > 0)
                 {
-                    <img src="data:image;base64,@(Convert.ToBase64String(item.Headwear.Image))" alt="Clothing Image" />
+                    <img class="outfit__image" src="data:image;base64,@(Convert.ToBase64String(item.Headwear.Image))" alt="Clothing Image" />
                 }
                 else
                 {
-                    <p>No image available</p>
+                    <img class="outfit__image" src="data:image /gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Empty Image" />
                 }
-            </td>
-            <td>
+
                 @if (item.Top.Image != null && item.Top.Image.Length > 0)
-				{
-					<img src="data:image;base64,@(Convert.ToBase64String(item.Top.Image))" alt="Clothing Image" />
-				}
-				else
-				{
-					<p>No image available</p>
-				}
-            </td>
-            <td>
+                {
+                    <img class="outfit__image" src="data:image;base64,@(Convert.ToBase64String(item.Top.Image))" alt="Clothing Image" />
+                }
+                else
+                {
+                    <img class="outfit__image" src="data:image /gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Empty Image" />
+                }
+
                 @if (item.Bottom.Image != null && item.Bottom.Image.Length > 0)
                 {
-                    <img src="data:image;base64,@(Convert.ToBase64String(item.Bottom.Image))" alt="Clothing Image" />
-				}
-				else
-				{
-					<p>No image available</p>
-				}
-            </td>
-            <td>
-                @if (item.Footwear.Image != null && item.Footwear.Image.Length > 0)
-				{
-					<img src="data:image;base64,@(Convert.ToBase64String(item.Footwear.Image))" alt="Clothing Image" />
+                    <img class="outfit__image" src="data:image;base64,@(Convert.ToBase64String(item.Bottom.Image))" alt="Clothing Image" />
                 }
                 else
-				{
-					<p>No image available</p>
-				}
-            </td>
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">View</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                {
+                    <img class="outfit__image" src="data:image /gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Empty Image" />
+                }
+
+                @if (item.Footwear.Image != null && item.Footwear.Image.Length > 0)
+                {
+                    <img class="outfit__image" src="data:image;base64,@(Convert.ToBase64String(item.Footwear.Image))" alt="Clothing Image" />
+                }
+                else
+                {
+                    <img class="outfit__image" src="data:image /gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Empty Image" />
+                }
+                </div>
+                <p class="outfit__date">@Html.DisplayFor(modelItem => item.Created)</p>
+                <div class="outfit__options">
+                    <a class="button button--primary" asp-page="./Details" asp-route-id="@item.Id">View</a>
+                    <a class="button button--secondary" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

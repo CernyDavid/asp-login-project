@@ -11,22 +11,24 @@
 <div class="main-page-container">
 	<div class="page-header">
 		<h1>StyleBase</h1>
-		<p>Your personal wardrobe organizer and outfit planner</p>
+		<p>Your personal wardrobe organizer, outfit planner and clothing database</p>
 	</div>
     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
     {
 		<div class="page-section">
 			<p>Hello, admin.</p>
-			<a class="button button--primary" asp-area="Administration" asp-page="Dashboard">Admin Panel</a>
-			<a class="button button--primary" asp-page="Collection/Index">Collection</a>
-			<a class="button button--primary" asp-page="Outfits/Index">Outfits</a>
+			<a class="button button--primary" asp-area="Administration" asp-page="Dashboard">Go to Admin Panel</a>
+		</div>
+		<div class="page-section">
+			<a class="button button--primary" asp-page="Collection/Index">View Clothes</a>
+			<a class="button button--primary" asp-page="Outfits/Index">View Outfits</a>
 		</div>
     }
     else if (User.Identity.IsAuthenticated)
 	{
 		<div class="page-section">
-		<a class="button button--primary" asp-page="Collection/Index">Clothes</a>
-		<a class="button button--primary" asp-page="Outfits/Index">Outfits</a>
+		<a class="button button--primary" asp-page="Collection/Index">View Clothes</a>
+		<a class="button button--primary" asp-page="Outfits/Index">View Outfits</a>
 		</div>
 	}
 	else

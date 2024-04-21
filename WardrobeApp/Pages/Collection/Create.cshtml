@@ -6,43 +6,40 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>ClothingItem</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="main-page-container">
+    <div class="page-header">
+        <h1>Add Item</h1>
+        <p>Add new clothing item</p>
+    </div>
+    <div>
         <form method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Name" class="control-label"></label>
-                <input asp-for="Input.Name" class="form-control" />
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            <div asp-validation-summary="ModelOnly"></div>
+            <div>
+                <label asp-for="Input.Name"></label>
+                <input asp-for="Input.Name" />
+                <span class="validation" asp-validation-for="Input.Name"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="Input.Type"></label>
                 @foreach (var t in Enum.GetValues(typeof(ClothingType)))
                 {
-                    <div class="form-check">
+                    <div class="radiobutton-input">
                         @Html.RadioButtonFor(model => model.Input.Type, t) @t<br />
                     </div>
                 }
-                <span asp-validation-for="Input.Type" class="text-danger"></span>
+                <span class="validation" asp-validation-for="Input.Type"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="Input.Image"></label>
-                <input asp-for="Input.Image" type="file" class="form-control-file" />
-                <span asp-validation-for="Input.Image" class="text-danger"></span>
+                <input asp-for="Input.Image" type="file"/>
+                <span class="validation" asp-validation-for="Input.Image"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="button-container">
+                <button type="submit" value="Create" class="button button--primary">Create</button>
+                <a class="button button--secondary" asp-page="Index">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {

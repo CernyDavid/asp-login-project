@@ -5,50 +5,35 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="main-page-container main-page-container--clothes">
+    <div class="page-header">
+        <h1>Your Closet</h1>
+        <p>All your clothes in one place</p>
+    </div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ClothingItem[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClothingItem[0].Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClothingItem[0].Type)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.ClothingItem) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @if (item.Image != null && item.Image.Length > 0)
-                {
-                    <img src="data:image;base64,@(Convert.ToBase64String(item.Image))" alt="Clothing Image" />
-                }
-                else
-                {
-                    <p>No image available</p>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Rename</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="button-container">
+        <a class="button button--primary" asp-page="./Create">Add Item</a>
+        <a class="button button--primary" asp-page="/Outfits/Index">View Outfits</a>
+    </div>
+
+    <div class="list-container">
+    @foreach (var item in Model.ClothingItem) {
+        <div class="clothing-item">
+            <h2 class="clothing-item__name">@Html.DisplayFor(modelItem => item.Name)</h2>
+            @if (item.Image != null && item.Image.Length > 0)
+            {
+                <img class="clothing-item__image" src="data:image;base64,@(Convert.ToBase64String(item.Image))" alt="Clothing Image" />
+            }
+            else
+            {
+                <p>No image available</p>
+            }
+            <p class="clothing-item__type">Type: @Html.DisplayFor(modelItem => item.Type)</p>
+            <div class="clothing-item__options">
+                <a class="button button--primary" asp-page="./Edit" asp-route-id="@item.Id">Rename</a>
+                <a class="button button--secondary" asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </div>
+        </div>
+    }
+    </div>
+</div>
