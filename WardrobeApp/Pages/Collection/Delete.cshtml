@@ -10,13 +10,25 @@
         <h1>Delete</h1>
         <p>Are you sure?</p>
     </div>
-    <div>
-        <form method="post">
-            <input type="hidden" asp-for="ClothingItem.Id" />
-			<div class="button-container">
-				<button type="submit" value="Delete" class="button button--primary">Delete</button>
-				<a class="button button--secondary" asp-page="Index">Back to List</a>
-			</div>
-        </form>
-    </div>
+    @if (Model.CanBeDeleted)
+    {
+        <div>
+            <form method="post">
+                <input type="hidden" asp-for="ClothingItem.Id" />
+                <div class="button-container">
+                    <button type="submit" value="Delete" class="button button--primary">Delete</button>
+                    <a class="button button--secondary" asp-page="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div>
+            <p>This item can't be deleted because it is part of an outfit.</p>
+            <div class="button-container">
+                <a class="button button--secondary" asp-page="Index">Back to List</a>
+            </div>
+        </div>
+    }
 </div>

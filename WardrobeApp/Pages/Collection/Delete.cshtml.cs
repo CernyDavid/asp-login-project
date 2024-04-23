@@ -23,6 +23,7 @@ namespace WardrobeApp.Pages.ClothingItemCRUD
 
         [BindProperty]
         public ClothingItem ClothingItem { get; set; } = default!;
+        public bool CanBeDeleted {  get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -41,6 +42,13 @@ namespace WardrobeApp.Pages.ClothingItemCRUD
             {
                 ClothingItem = clothingitem;
             }
+
+            CanBeDeleted = !_context.Outfits.Any(outfit =>
+            outfit.HeadwearId == ClothingItem.Id ||
+            outfit.TopId == ClothingItem.Id ||
+            outfit.BottomId == ClothingItem.Id ||
+            outfit.FootwearId == ClothingItem.Id);
+
             return Page();
         }
 
